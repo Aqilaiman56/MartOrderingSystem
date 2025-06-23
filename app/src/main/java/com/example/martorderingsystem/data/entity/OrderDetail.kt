@@ -3,7 +3,6 @@ package com.example.martorderingsystem.data.entity
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.martorderingsystem.data.User
 
 @Entity(
     tableName = "order_details",
@@ -15,7 +14,7 @@ import com.example.martorderingsystem.data.User
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = Product::class,
+            entity = Item::class,
             parentColumns = ["productId"],
             childColumns = ["productId"],
             onDelete = ForeignKey.CASCADE

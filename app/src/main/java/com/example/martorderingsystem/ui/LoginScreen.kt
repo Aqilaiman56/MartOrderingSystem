@@ -11,13 +11,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.martorderingsystem.AdminHomeActivity
-import com.example.martorderingsystem.UserHomeActivity
-import com.example.martorderingsystem.RegisterActivity
+import com.example.martorderingsystem.ui.Activity.AdminHomeActivity
 import com.example.martorderingsystem.data.AppDatabase
-import com.example.martorderingsystem.data.User
 import kotlinx.coroutines.launch
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import com.example.martorderingsystem.ui.Activity.RegisterActivity
+import com.example.martorderingsystem.ui.Activity.UserHomeActivity
 
 @Composable
 fun LoginScreen() {
