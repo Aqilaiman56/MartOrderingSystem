@@ -1,4 +1,3 @@
-// FILE: ui/LoginScreen.kt
 package com.example.martorderingsystem.ui
 
 import android.content.Intent
@@ -11,15 +10,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.martorderingsystem.AdminHomeActivity
-import com.example.martorderingsystem.UserHomeActivity
-import com.example.martorderingsystem.RegisterActivity
+import com.example.martorderingsystem.MainActivity
 
 @Composable
-fun LoginScreen() {
+fun RegisterScreen() {
     val context = LocalContext.current
     var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -27,7 +26,7 @@ fun LoginScreen() {
             .padding(24.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Mart Login", style = MaterialTheme.typography.headlineMedium)
+        Text("Register", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
@@ -38,31 +37,40 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") }
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") }
         )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = { Text("Confirm Password") }
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            if (username == "admin" && password == "admin") {
-                context.startActivity(Intent(context, AdminHomeActivity::class.java))
-            } else {
-                context.startActivity(Intent(context, UserHomeActivity::class.java))
-            }
+            // After registration, go back to login (MainActivity)
+            context.startActivity(Intent(context, MainActivity::class.java))
         }) {
-            Text("Login")
+            Text("Register")
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Text(
-            text = "Register Now",
+            text = "Already have an account? Login",
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             modifier = Modifier.clickable {
-                context.startActivity(Intent(context, RegisterActivity::class.java))
+                context.startActivity(Intent(context, MainActivity::class.java))
             }
         )
     }
