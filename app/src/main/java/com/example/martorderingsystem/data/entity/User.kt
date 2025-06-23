@@ -1,12 +1,14 @@
-package com.example.martorderingsystem.data.entity
+// FILE: data/User.kt
+package com.example.martorderingsystem.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
 data class User(
-    @PrimaryKey(autoGenerate = true) val userId: Int = 0,
+    @PrimaryKey val userID: Int,
     val username: String,
-    val password: String,
-    val role: String // "admin" or "user"
+    val email: String,
+    val password: String
 )
+

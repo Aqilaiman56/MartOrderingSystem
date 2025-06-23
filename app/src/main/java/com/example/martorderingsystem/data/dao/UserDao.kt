@@ -1,24 +1,17 @@
-package com.example.martorderingsystem.data.dao
+// FILE: data/UserDao.kt
+package com.example.martorderingsystem.data
 
-import androidx.room.*
-import com.example.martorderingsystem.data.entity.User
-import kotlinx.coroutines.flow.Flow
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Dao
 interface UserDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertUser(user: User)
 
-    @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
-    suspend fun getUserByUsername(username: String): User?
-
-    @Query("SELECT * FROM users WHERE userId = :userId")
-    suspend fun getUserById(userId: Int): User?
-
-    @Query("SELECT * FROM users")
-    fun getAllUsers(): Flow<List<User>>
-
-    @Delete
-    suspend fun deleteUser(user: User)
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password LIMIT 1")
+    suspend fun getUser(username: String, password: String): User?
 }

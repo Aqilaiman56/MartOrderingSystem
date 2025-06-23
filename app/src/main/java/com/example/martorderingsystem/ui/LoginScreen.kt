@@ -14,12 +14,20 @@ import androidx.compose.ui.unit.sp
 import com.example.martorderingsystem.AdminHomeActivity
 import com.example.martorderingsystem.UserHomeActivity
 import com.example.martorderingsystem.RegisterActivity
+import com.example.martorderingsystem.data.AppDatabase
+import com.example.martorderingsystem.data.User
+import kotlinx.coroutines.launch
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 
 @Composable
 fun LoginScreen() {
     val context = LocalContext.current
+    val db = remember { AppDatabase.getInstance(context) }
+    val userDao = db.userDao()
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -40,18 +48,32 @@ fun LoginScreen() {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") }
+            label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            if (username == "admin" && password == "admin") {
-                context.startActivity(Intent(context, AdminHomeActivity::class.java))
-            } else {
-                context.startActivity(Intent(context, UserHomeActivity::class.java))
+            scope.launch {
+                val user = userDao.getUser(username, password)
+                if (user != null) {
+                    val intent = if (user.isAdmin) {
+                        Intent(context, AdminHomeActivity::class.java)
+                    } else {
+                        Intent(context, UserHomeActivity::class.java)
+                    }
+                    context.startActivity(intent)
+                } else {
+                    errorMessage = "Invalid username or password"
+                }
             }
         }) {
             Text("Login")
+        }
+
+        if (errorMessage != null) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error)
         }
 
         Spacer(modifier = Modifier.height(16.dp))

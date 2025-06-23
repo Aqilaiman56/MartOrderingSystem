@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.martorderingsystem.ui.RegisterScreen
 import com.example.martorderingsystem.ui.theme.MartOrderingSystemTheme
 
 class UserHomeActivity : ComponentActivity() {
@@ -15,11 +16,7 @@ class UserHomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MartOrderingSystemTheme {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text("Welcome User", style = MaterialTheme.typography.headlineMedium)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Browse products and place orders.")
-                }
+                UserHomeScreen()
             }
         }
     }

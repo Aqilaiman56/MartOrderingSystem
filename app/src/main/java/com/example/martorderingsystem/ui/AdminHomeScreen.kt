@@ -15,7 +15,7 @@ import com.example.martorderingsystem.data.AppDatabase
 import com.example.martorderingsystem.data.User
 
 @Composable
-fun RegisterScreen() {
+fun AdminHomeScreen() {
     val context = LocalContext.current
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
